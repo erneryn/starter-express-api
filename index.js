@@ -7,6 +7,8 @@ require('dotenv').config()
 
 
 const user = require('./api/user');
+const customer = require('./api/customer');
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,6 +21,7 @@ app.all('/', (req, res) => {
 app.use(morgan('dev'))
 
 app.use('/user', user);
+app.use('/customer', customer);
 
 const PORT = process.env.PORT || 3037;
 
