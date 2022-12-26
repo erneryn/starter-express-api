@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const db = require('../databases')
 
+const auth = require('./authentication');
+
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;
   try {
@@ -39,5 +41,11 @@ router.post("/login", async (req, res) => {
     res.status(error.status || 500).json({ message: error.message } || error);
   }
 });
+
+router.post('/check_auth',auth,(req,res,next)=>{
+  res.status(200).json({
+    mesaage: 'Authenticated'
+  })
+})
 
 module.exports = router
