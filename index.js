@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const user = require('./api/user');
 const customer = require('./api/customer');
+const service = require('./api/service');
 
 app.options('*',cors());
 app.use(function(req, res, next) {
@@ -33,6 +34,7 @@ app.use(morgan('dev'))
 
 app.use('/user', user);
 app.use('/customer', customer);
+app.use('/service', service)
 
 const PORT = process.env.PORT || 3037;
 

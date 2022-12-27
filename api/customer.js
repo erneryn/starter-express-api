@@ -75,6 +75,7 @@ router.post("/get", auth, async (req, res) => {
     // console.log("customer/get ||", row[0]);
   } catch (error) {
     conn && conn.release();
+    console.log(error)
     res.status(error.status || 500).json({ message: error.message } || error);
   } finally {
     conn && conn.release();
