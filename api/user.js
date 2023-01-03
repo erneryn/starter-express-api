@@ -7,6 +7,35 @@ const db = require('../databases')
 
 const auth = require('./authentication');
 
+router.post('/login/google', async (req, res)=> {
+  let token = req.body.token;
+
+  try {
+    var conn = await db.getConnection();
+    const { email } = jwt.decode(token)
+    let [find] = await conn.execute("SELECT email,password FROM user where email=?",[email])
+    conn.release()
+
+    if (find.length > 0) {
+      res.status(200).json({
+        message: 'Login Berhasil',
+          token: jwt.sign({
+            email,
+            password: 'defaultpasswordgoogle'
+          }, process.env.SECRET_KEY)
+        })
+    } else {
+      throw new Error({
+        status: 404,
+        message : 'Email Not Found'
+      })
+    }
+  } catch (error) {
+    conn && conn.release()
+    res.status(error.status || 500).json({ message: error.message } || error);
+  }
+})
+
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;
   try {

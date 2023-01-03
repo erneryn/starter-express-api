@@ -36,7 +36,7 @@ app.use('/user', user);
 app.use('/customer', customer);
 app.use('/service', service)
 
-const PORT = process.env.PORT || 3037;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log('application running')
